@@ -10,6 +10,7 @@ const {
   getCustomers,
   getClinics,
   getSiteSettings,
+  getPageContent,
 } = require('../lib/sanity');
 
 // Cache duration (5 minutes in production, 0 in development)
@@ -76,16 +77,32 @@ router.get('/settings', async (req, res) => {
 });
 
 /**
+ * GET /api/content/page
+ * Fetch page content
+ */
+router.get('/page', async (req, res) => {
+  try {
+    const page = await getPageContent();
+    res.set('Cache-Control', `public, max-age=${CACHE_DURATION}`);
+    res.json({ success: true, data: page });
+  } catch (error) {
+    console.error('Error fetching page content:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch page content' });
+  }
+});
+
+/**
  * GET /api/content/all
  * Fetch all content at once (for initial page load)
  */
 router.get('/all', async (req, res) => {
   try {
-    const [team, customers, clinics, settings] = await Promise.all([
+    const [team, customers, clinics, settings, page] = await Promise.all([
       getTeamMembers(),
       getCustomers(),
       getClinics(),
       getSiteSettings(),
+      getPageContent(),
     ]);
 
     res.set('Cache-Control', `public, max-age=${CACHE_DURATION}`);
@@ -96,6 +113,7 @@ router.get('/all', async (req, res) => {
         customers,
         clinics,
         settings,
+        page,
       },
     });
   } catch (error) {
