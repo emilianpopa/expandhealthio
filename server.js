@@ -7,6 +7,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const basicAuth = require('express-basic-auth');
+const contentRoutes = require('./api/content');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -36,6 +37,9 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// Content API routes
+app.use('/api/content', contentRoutes);
 
 // Serve landing page at root
 app.get('/', (req, res) => {

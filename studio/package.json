@@ -1,0 +1,19 @@
+{
+  "name": "expandhealth-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for ExpandHealth Marketing Site",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "sanity": "^5.9.0",
+    "@sanity/vision": "^3.71.0"
+  }
+}
