@@ -3,6 +3,7 @@ import customer from './customer'
 import clinic from './clinic'
 import siteSettings from './siteSettings'
 import pageContent from './pageContent'
+import seoSettings from './seoSettings'
 
 export const schemaTypes = [
   pageContent,
@@ -10,4 +11,5 @@ export const schemaTypes = [
   customer,
   clinic,
   siteSettings,
+  seoSettings,
 ]

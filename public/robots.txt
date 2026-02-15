@@ -1,0 +1,10 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow private areas
+Disallow: /api/
+Disallow: /docs/
+
+# Sitemap location
+Sitemap: https://www.expandhealth.io/sitemap.xml

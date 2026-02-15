@@ -1,0 +1,50 @@
+<% if (seo.structuredData) { %>
+<!-- JSON-LD Structured Data (Organization Schema) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "<%= seo.structuredData.organizationName || 'Expand Health' %>",
+  <% if (seo.structuredData.legalName) { %>
+  "legalName": "<%= seo.structuredData.legalName %>",
+  <% } %>
+  "url": "<%= seo.canonicalUrl || currentUrl %>",
+  <% if (seo.structuredData.foundingDate) { %>
+  "foundingDate": "<%= seo.structuredData.foundingDate %>",
+  <% } %>
+  <% if (seo.structuredData.address && seo.structuredData.address.street) { %>
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "<%= seo.structuredData.address.street %>",
+    "addressLocality": "<%= seo.structuredData.address.city %>",
+    "postalCode": "<%= seo.structuredData.address.postalCode %>",
+    "addressCountry": "<%= seo.structuredData.address.country %>"
+  },
+  <% } %>
+  <% if (seo.structuredData.contactPoint && (seo.structuredData.contactPoint.telephone || seo.structuredData.contactPoint.email)) { %>
+  "contactPoint": {
+    "@type": "ContactPoint",
+    <% if (seo.structuredData.contactPoint.telephone) { %>
+    "telephone": "<%= seo.structuredData.contactPoint.telephone %>",
+    <% } %>
+    <% if (seo.structuredData.contactPoint.email) { %>
+    "email": "<%= seo.structuredData.contactPoint.email %>",
+    <% } %>
+    "contactType": "<%= seo.structuredData.contactPoint.contactType || 'customer support' %>"
+  },
+  <% } %>
+  <% if (seo.ogImageUrl) { %>
+  "logo": "<%= seo.ogImageUrl %>",
+  "image": "<%= seo.ogImageUrl %>",
+  <% } %>
+  <% if (seo.structuredData.sameAs && seo.structuredData.sameAs.length > 0) { %>
+  "sameAs": [
+    <% seo.structuredData.sameAs.forEach((url, index) => { %>
+    "<%= url %>"<%= index < seo.structuredData.sameAs.length - 1 ? ',' : '' %>
+    <% }); %>
+  ],
+  <% } %>
+  "description": "<%= seo.metaDescription || site.description || 'Expand Health is every health professional\'s trusted AI co-pilot for smarter, personalised care.' %>"
+}
+</script>
+<% } %>
